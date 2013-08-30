@@ -10,9 +10,9 @@ This is a very early, unfishied version.
 ```ruby
 require_relative "lib/autoit-ffi"
 
-ai = AutoItFFI
+ai = AutoItFFI::AutoIt
 
-ai.is_admin?                  # => true/false
+ai.admin?                     # => true/false
 ai.move_mouse(500, 500, 5)    # x, y, speed
 ```
 
