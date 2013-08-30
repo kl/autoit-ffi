@@ -1,8 +1,9 @@
 require 'ffi'
+require 'pry'
 
-module AutoRuby
+module AutoItFFI
   extend FFI::Library
-  ffi_lib "../dll/AutoItX3.dll"
+  ffi_lib File.expand_path(File.dirname(__FILE__)) + "/../dll/AutoItX3.dll"
   ffi_convention :stdcall
 
   attach_function("posx", "AU3_MouseGetPosX", [], :int)
@@ -20,6 +21,8 @@ module AutoRuby
   end
 
 end
+
+#binding.pry
 
 #AU3_API long WINAPI AU3_MouseGetPosX(void);
 #AU3_API long WINAPI AU3_MouseMove(long nX, long nY, /*[in,defaultvalue(-1)]*/long nSpeed);
