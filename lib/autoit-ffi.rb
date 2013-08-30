@@ -1,7 +1,6 @@
 #encoding: utf-8
 
 require 'ffi'
-require 'pry'
 
 require_relative 'function_attacher'
 
