@@ -16,8 +16,18 @@ module AutoItFFI
 
       lib.attach_function :AU3_WinMinimizeAll, [], :void
       lib.attach_function :AU3_WinMinimizeAllUndo, [], :void
+      lib.attach_function :AU3_MouseWheel, [:pointer, :long], :void
+
+      lib.attach_function :AU3_CDTray, [:pointer, :pointer], :long
+
+      lib.attach_function :AU3_Send, [:pointer, :long], :void
 
     end
 
   end
 end
+
+# AU3_API void WINAPI AU3_MouseWheel(LPCWSTR szDirection, long nClicks);
+# AU3_API long WINAPI AU3_CDTray(LPCWSTR szDrive, LPCWSTR szAction);
+
+
