@@ -32,8 +32,13 @@ module AutoItFFI
       self.AU3_MouseGetPosY
     end
 
+    def window_minimize_all
+      self.AU3_WinMinimizeAll
+    end
+
+    def window_minimize_all_undo
+      self.AU3_WinMinimizeAllUndo
+    end
+
   end
 end
-
-#AU3_API long WINAPI AU3_MouseGetPosX(void);
-#AU3_API long WINAPI AU3_MouseMove(long nX, long nY, /*[in,defaultvalue(-1)]*/long nSpeed);
