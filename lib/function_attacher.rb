@@ -4,24 +4,26 @@ module AutoItFFI
 
   module FunctionAttacher
 
+    FUNCTION_PROTOTYPES = [
+      [ :AU3_Init,                  [],                       :void ],
+      [ :AU3_BlockInput,            [:long],                  :void ],
+      [ :AU3_MouseGetPosX,          [],                       :int  ],
+      [ :AU3_MouseGetPosY,          [],                       :int  ],
+      [ :AU3_IsAdmin,               [],                       :int  ],
+      [ :AU3_MouseMove,             [:long, :long, :long],    :long ],
+      [ :AU3_WinMinimizeAll,        [],                       :void ],
+      [ :AU3_WinMinimizeAllUndo,    [],                       :void ],
+      [ :AU3_MouseWheel,            [:pointer, :long],        :void ],
+      [ :AU3_CDTray,                [:pointer, :pointer],     :long ],
+      [ :AU3_Send,                  [:pointer, :long],        :void ]
+    ] 
+
+
     # Attaches the AutoIt DLL functions to lib (which must extend FFI::Library).
     # See "doc/Function Prototypes (C).txt" for the C header file.
     #
     def self.attach(lib)
-
-      lib.attach_function :AU3_MouseGetPosX, [], :int
-      lib.attach_function :AU3_MouseGetPosY, [], :int
-      lib.attach_function :AU3_IsAdmin, [], :int
-      lib.attach_function :AU3_MouseMove, [:long, :long, :long], :long
-
-      lib.attach_function :AU3_WinMinimizeAll, [], :void
-      lib.attach_function :AU3_WinMinimizeAllUndo, [], :void
-      lib.attach_function :AU3_MouseWheel, [:pointer, :long], :void
-
-      lib.attach_function :AU3_CDTray, [:pointer, :pointer], :long
-
-      lib.attach_function :AU3_Send, [:pointer, :long], :void
-
+      FUNCTION_PROTOTYPES.each { |fun| lib.attach_function *fun }
     end
 
   end

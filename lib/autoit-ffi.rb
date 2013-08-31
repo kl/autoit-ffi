@@ -12,11 +12,17 @@ module AutoItFFI
     ffi_lib File.expand_path(File.dirname(__FILE__)) + "/../dll/AutoItX3.dll"
     ffi_convention :stdcall
     FunctionAttacher.attach(self)
+    self.AU3_Init
 
     module_function
 
     def admin?
       self.AU3_IsAdmin == 1
+    end
+
+    def block_input(flag)
+      flag_int = flag ? 1 : 0
+      self.AU3_BlockInput(flag_int)
     end
 
     def move_mouse(x, y, speed = 10)
@@ -49,7 +55,7 @@ module AutoItFFI
     end
 
     def send(text, mode = :special)
-      mode_int = mode == :raw ? 1 : 0
+      mode_int = mode.to_sym == :raw ? 1 : 0
       self.AU3_Send(to_utf16(text), mode_int)
     end
 
