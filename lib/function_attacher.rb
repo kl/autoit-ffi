@@ -5,6 +5,7 @@ module AutoItFFI
   module FunctionAttacher
 
     FUNCTION_PROTOTYPES = [
+      [ :AU3_AutoItSetOption,       [:pointer, :long],           :long ],
       [ :AU3_Init,                  [],                          :void ],
       [ :AU3_BlockInput,            [:long],                     :void ],
       [ :AU3_MouseGetPosX,          [],                          :int  ],
@@ -18,6 +19,7 @@ module AutoItFFI
       [ :AU3_Send,                  [:pointer, :long],           :void ],
       [ :AU3_Sleep,                 [:long],                     :void ],
       [ :AU3_ToolTip,               [:pointer, :long, :long],    :void ],
+      [ :AU3_WinClose,              [:pointer, :pointer],        :long ],
       [ :AU3_WinExists,             [:pointer, :pointer],        :long ]
     ] 
 

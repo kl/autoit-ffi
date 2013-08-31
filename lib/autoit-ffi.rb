@@ -7,6 +7,11 @@ module AutoItFFI
 
   module AutoIt
 
+    # "Default" value for _some_ int parameters (largest negative number)
+    AU3_INTDEFAULT = -2147483647
+    # Used when constructing strings consumed by AutoIt
+    UTF_16LE_NULL = "\0".encode("UTF-16LE")
+
     extend FFI::Library
     ffi_lib File.expand_path(File.dirname(__FILE__)) + "/../dll/AutoItX3.dll"
     ffi_convention :stdcall
@@ -15,6 +20,10 @@ module AutoItFFI
     self.AU3_Init
 
     module_function
+
+    def auto_it_set_option(option, value)
+      self.AU3_AutoItSetOption(to_utf16(option), value.to_i)
+    end
 
     def admin?
       self.AU3_IsAdmin == 1
@@ -63,13 +72,17 @@ module AutoItFFI
       self.AU3_Sleep(milliseconds.to_i)
     end
 
-    def tool_tip(tip, x, y)
+    def tool_tip(tip, x = AU3_INTDEFAULT, y = AU3_INTDEFAULT)
       self.AU3_ToolTip(to_utf16(tip), x.to_i, y.to_i)
+    end
+
+    def win_close(title, text = "")
+      result = self.AU3_WinClose(to_utf16(title), to_utf16(text))
+      result == 1
     end
 
     def win_exists?(title, text = "")
       result = self.AU3_WinExists(to_utf16(title), to_utf16(text))
-      puts result
       result == 1
     end
 
@@ -81,7 +94,7 @@ module AutoItFFI
     # NULL character must be explicitly added.
     #
     def to_utf16(object)
-      object.to_s.encode("UTF-16LE") + "\0".encode("UTF-16LE")
+      object.to_s.encode("UTF-16LE") + UTF_16LE_NULL
     end
     private_class_method :to_utf16
 
