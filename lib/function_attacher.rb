@@ -17,7 +17,8 @@ module AutoItFFI
       [ :AU3_CDTray,                [:pointer, :pointer],        :long ],
       [ :AU3_Send,                  [:pointer, :long],           :void ],
       [ :AU3_Sleep,                 [:long],                     :void ],
-      [ :AU3_ToolTip,               [:pointer, :long, :long],    :void ]
+      [ :AU3_ToolTip,               [:pointer, :long, :long],    :void ],
+      [ :AU3_WinExists,             [:pointer, :pointer],        :long ]
     ] 
 
 

@@ -67,10 +67,21 @@ module AutoItFFI
       self.AU3_ToolTip(to_utf16(tip), x.to_i, y.to_i)
     end
 
-    # --- Helpers ----
+    def win_exists?(title, text = "")
+      result = self.AU3_WinExists(to_utf16(title), to_utf16(text))
+      puts result
+      result == 1
+    end
 
+    # --- Helpers ----
+  
+    # All AutoIt functions that take strings expect the strings to be of the "LPCWSTR"
+    # or "LPWSTR" types, which use 2 bytes per character. This method calls to_s on its
+    # argument and converts the string to UTF-16LE so that AutoIt can use it. Note that the
+    # NULL character must be explicitly added.
+    #
     def to_utf16(object)
-      object.to_s.encode("UTF-16LE")
+      object.to_s.encode("UTF-16LE") + "\0".encode("UTF-16LE")
     end
     private_class_method :to_utf16
 
