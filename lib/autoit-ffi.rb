@@ -1,7 +1,6 @@
 #encoding: utf-8
 
 require 'ffi'
-
 require_relative 'function_attacher'
 
 module AutoItFFI
@@ -11,6 +10,7 @@ module AutoItFFI
     extend FFI::Library
     ffi_lib File.expand_path(File.dirname(__FILE__)) + "/../dll/AutoItX3.dll"
     ffi_convention :stdcall
+
     FunctionAttacher.attach(self)
     self.AU3_Init
 
@@ -26,7 +26,7 @@ module AutoItFFI
     end
 
     def move_mouse(x, y, speed = 10)
-      self.AU3_MouseMove(x, y, speed)
+      self.AU3_MouseMove(x.to_i, y.to_i, speed.to_i)
     end
 
     def get_mouse_pos_x
@@ -46,7 +46,7 @@ module AutoItFFI
     end
 
     def mouse_wheel(direction, clicks)
-      self.AU3_MouseWheel(to_utf16(direction), clicks)
+      self.AU3_MouseWheel(to_utf16(direction), clicks.to_i)
     end
 
     def cd_tray(drive, action)
@@ -57,6 +57,14 @@ module AutoItFFI
     def send(text, mode = :special)
       mode_int = mode.to_sym == :raw ? 1 : 0
       self.AU3_Send(to_utf16(text), mode_int)
+    end
+
+    def sleep(milliseconds)
+      self.AU3_Sleep(milliseconds.to_i)
+    end
+
+    def tool_tip(tip, x, y)
+      self.AU3_ToolTip(to_utf16(tip), x.to_i, y.to_i)
     end
 
     # --- Helpers ----
