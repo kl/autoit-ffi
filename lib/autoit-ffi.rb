@@ -115,6 +115,11 @@ module AutoItFFI
       self.AU3_ToolTip(to_utf16(tip), x.to_i, y.to_i)
     end
 
+    def win_activate(title, text = "")
+      result = self.AU3_WinActivate(to_utf16(title), to_utf16(text))
+      result == 1
+    end
+
     def win_close(title, text = "")
       result = self.AU3_WinClose(to_utf16(title), to_utf16(text))
       result == 1
