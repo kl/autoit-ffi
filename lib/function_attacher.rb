@@ -22,6 +22,7 @@ module AutoItFFI
       [ :AU3_Sleep,                 [:long],                     :void ],
       [ :AU3_Shutdown,              [:long],                     :long ],
       [ :AU3_ToolTip,               [:pointer, :long, :long],    :void ],
+      [ :AU3_WinActivate,           [:pointer, :pointer],        :long ],
       [ :AU3_WinClose,              [:pointer, :pointer],        :long ],
       [ :AU3_WinExists,             [:pointer, :pointer],        :long ],
       [ :AU3_WinKill,               [:pointer, :pointer],        :long ]
